@@ -1,19 +1,40 @@
 using System;
 
-class Program {
-    // Function to add two numbers together
-    static int Add(int a, int b) {
-        return a + b;
+class Program
+{
+    static void Main()
+    {
+        DisplayWelcome();
+        string name = PromptUserName();
+        int number = PromptUserNumber();
+        int squared = SquareNumber(number);
+        DisplayResult(name, squared);
     }
 
-    static void Main() {
-        Console.Write("Enter first number: ");
-        int num1 = Convert.ToInt32(Console.ReadLine());
+    static void DisplayWelcome()
+    {
+        Console.WriteLine("Welcome to the Program!");
+    }
 
-        Console.Write("Enter second number: ");
-        int num2 = Convert.ToInt32(Console.ReadLine());
+    static string PromptUserName()
+    {
+        Console.Write("Please enter your name: ");
+        return Console.ReadLine();
+    }
 
-        int result = Add(num1, num2);
-        Console.WriteLine($"The sum of {num1} and {num2} is {result}");
+    static int PromptUserNumber()
+    {
+        Console.Write("Please enter your favorite number: ");
+        return int.Parse(Console.ReadLine());
+    }
+
+    static int SquareNumber(int number)
+    {
+        return number * number;
+    }
+
+    static void DisplayResult(string name, int squaredNumber)
+    {
+        Console.WriteLine($"{name}, the square of your number is {squaredNumber}");
     }
 }
