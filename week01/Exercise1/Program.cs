@@ -3,15 +3,12 @@ class Program
 {
     static void Main()
     {
-        // Ask for the user’s name
-        Console.Write("What is your name? ");
-        string name = Console.ReadLine();
+        Console.Write("What is your first name? ");
+        string first = Console.ReadLine();
 
-        // Ask for their favorite color
-        Console.Write("What is your favorite color? ");
-        string color = Console.ReadLine();
+        Console.Write("What is your last name? ");
+        string last = Console.ReadLine();
 
-        // Output a sentence using variables
-        Console.WriteLine($"{name}, your favorite color is {color}!");
+        Console.WriteLine($"Your name is {last}, {first} {last}");
     }
 }
