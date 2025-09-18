@@ -1,65 +1,47 @@
 using System;
-using System.IO;
 using System.Collections.Generic;
+using System.IO;
 
-namespace JournalProgram
+public class Journal
 {
-    public class Journal
+    public List<Entry> _entries = new List<Entry>();
+
+    public void AddEntry(Entry newEntry)
     {
-        private List<Entry> _entries = new List<Entry>();
+        _entries.Add(newEntry);
+    }
 
-        public void AddEntry(Entry entry)
+    public void DisplayAll()
+    {
+        foreach (Entry e in _entries)
         {
-            _entries.Add(entry);
+            e.Display();
         }
+    }
 
-        public void DisplayEntries()
+    public void SaveToFile(string filename)
+    {
+        using (StreamWriter outputFile = new StreamWriter(filename))
         {
-            if (_entries.Count == 0)
+            foreach (Entry e in _entries)
             {
-                Console.WriteLine("No entries yet...");
-            }
-            else
-            {
-                foreach (Entry e in _entries)
-                {
-                    Console.WriteLine(e);
-                }
+                outputFile.WriteLine($"{e._date}|{e._prompt}|{e._response}");
             }
         }
+    }
 
-        public void SaveToFile(string filename)
+    public void LoadFromFile(string filename)
+    {
+        string[] lines = System.IO.File.ReadAllLines(filename);
+
+        foreach (string line in lines)
         {
-            using (StreamWriter writer = new StreamWriter(filename))
-            {
-                foreach (Entry e in _entries)
-                {
-                    writer.WriteLine(e.ToFileString());
-                }
-            }
-            Console.WriteLine("Journal saved to " + filename);
-        }
-
-        public void LoadFromFile(string filename)
-        {
-            if (!File.Exists(filename))
-            {
-                Console.WriteLine("File not found.");
-                return;
-            }
-
-            _entries.Clear();
-            string[] lines = File.ReadAllLines(filename);
-            foreach (string line in lines)
-            {
-                Entry e = Entry.FromFileString(line);
-                if (e != null)
-                {
-                    _entries.Add(e);
-                }
-            }
-            Console.WriteLine("Journal loaded from " + filename);
+            string[] parts = line.Split("|");
+            Entry e = new Entry();
+            e._date = parts[0];
+            e._prompt = parts[1];
+            e._response = parts[2];
+            _entries.Add(e);
         }
     }
 }
-
