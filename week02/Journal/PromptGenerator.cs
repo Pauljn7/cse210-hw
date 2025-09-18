@@ -1,27 +1,21 @@
 using System;
 using System.Collections.Generic;
 
-namespace JournalProgram
+public class PromptGenerator
 {
-    public class PromptGenerator
+    public List<string> _prompts = new List<string>()
     {
-        private List<string> _prompts = new List<string>();
-        private Random _random = new Random();
+        "What was the best thing that happened to you today?",
+        "What is something you are grateful for?",
+        "What did you learn today?",
+        "Who made your day better today?",
+        "What is one goal you have for tomorrow?"
+    };
 
-        public PromptGenerator()
-        {
-            _prompts.Add("What was the best thing that happened to you today?");
-            _prompts.Add("Who made you smile today?");
-            _prompts.Add("What challenge did you face today?");
-            _prompts.Add("What are you grateful for?");
-            _prompts.Add("If you could change one thing about today, what would it be?");
-        }
-
-        public string GetRandomPrompt()
-        {
-            int index = _random.Next(_prompts.Count);
-            return _prompts[index];
-        }
+    public string GetRandomPrompt()
+    {
+        Random rnd = new Random();
+        int index = rnd.Next(_prompts.Count);
+        return _prompts[index];
     }
 }
-
