@@ -1,34 +1,39 @@
 using System;
 using System.Collections.Generic;
 
-class Program
+public class Video
 {
-    static void Main(string[] args)
+    private string _title;
+    private string _author;
+    private int _length;
+    private List<Comment> _comments;
+
+    public Video(string title, string author, int length)
     {
-        List<Video> videos = new List<Video>();
+        _title = title;
+        _author = author;
+        _length = length;
+        _comments = new List<Comment>();
+    }
 
-        Video video1 = new Video("Intro to C#", "Alice", 600);
-        video1.AddComment(new Comment("John", "Nice video!"));
-        video1.AddComment(new Comment("Mary", "Very helpful."));
-        video1.AddComment(new Comment("Sam", "Can you explain classes more?"));
-        videos.Add(video1);
+    public void AddComment(Comment comment)
+    {
+        _comments.Add(comment);
+    }
 
-        Video video2 = new Video("Object Oriented Programming", "Bob", 720);
-        video2.AddComment(new Comment("Lucy", "Good job explaining."));
-        video2.AddComment(new Comment("Tom", "Thanks, this helped."));
-        video2.AddComment(new Comment("Anna", "Inheritance is clear now."));
-        videos.Add(video2);
+    public int GetCommentCount()
+    {
+        return _comments.Count;
+    }
 
-        Video video3 = new Video("Abstraction Basics", "Charlie", 540);
-        video3.AddComment(new Comment("Dave", "This was useful."));
-        video3.AddComment(new Comment("Eve", "I liked the examples."));
-        video3.AddComment(new Comment("Paul", "Looking forward to the next one!"));
-        videos.Add(video3);
-
-        foreach (Video v in videos)
+    public void DisplayInfo()
+    {
+        Console.WriteLine($"{_title} by {_author} - {_length} seconds");
+        Console.WriteLine($"Comments ({GetCommentCount()}):");
+        foreach (Comment c in _comments)
         {
-            v.DisplayInfo();
+            c.DisplayComment();
         }
+        Console.WriteLine();
     }
 }
-
